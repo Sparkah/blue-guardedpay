@@ -4,34 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GuardedPay Admin Dashboard</title>
-    <script type="module" crossorigin src="./assets/index-whF6c4AJ.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-BSn85SAq.css">
+    <script type="module" crossorigin src="/blue-guardedpay/assets/index-BZ735rNK.js"></script>
+    <link rel="stylesheet" crossorigin href="/blue-guardedpay/assets/index-BfwPx5cm.css">
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      // Bypass auth for static preview — intercept fetch to return mock data
-      const originalFetch = window.fetch;
-      window.fetch = function(url, options) {
-        const urlStr = typeof url === 'string' ? url : url.toString();
-        // Mock login response
-        if (urlStr.includes('/admin/auth/login')) {
-          return Promise.resolve(new Response(JSON.stringify({
-            accessToken: 'preview-token',
-            refreshToken: 'preview-refresh',
-            admin: { id: '1', email: 'designer@guardedpaypro.com', name: 'UI Designer', role: 'super_admin' }
-          }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
-        }
-        // Mock all other API calls with empty data
-        if (urlStr.includes('/api/v1')) {
-          return Promise.resolve(new Response(JSON.stringify({
-            success: true, data: [], merchants: [], transactions: [], total: 0, totalCount: 0,
-            stats: { totalRevenue: 15000, transactionsToday: 42, activeMerchants: 6, chargebackRate: 0 },
-            pendingApplications: 3, recentTransactions: [], chartData: []
-          }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
-        }
-        return originalFetch.apply(this, arguments);
-      };
-    </script>
   </body>
 </html>
